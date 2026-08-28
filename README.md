@@ -4,7 +4,7 @@ AIN-Loop（AI-Native Engineering Loop）是一套厂商无关、可渐进落地�
 
 本框架吸收了 Anthropic 的 AI-Native SDLC 思路，但不依赖 Claude、GitHub、Jira 或某个云厂商；任意具备 Agent、Git、CI/CD、监控和工单能力的技术栈均可采用。
 
-当前版本同时包含一个零第三方依赖的智能编排器 `ain`。它可以初始化业务仓库、创建变更、校验工件完整性、根据内容与代码路径推断风险下限、动态计算审批角色、执行阶段门禁、维护审计日志，并为下一阶段生成可直接交给 Agent 的提示。
+当前版本同时包含一个零第三方依赖的智能编排器 `ain`。它可以初始化业务仓库、创建变更、校验工件完整性、根据内容与代码路径推断风险下限、动态计算审批角色、执行阶段门禁、维护审计日志，并为下一阶段生成可直接交给 Agent 的提示。v0.2 进一步把“批准”“计划范围”和“验证完成”变成可检查的 Git 与证据约束。
 
 ## 五分钟开始
 
@@ -33,6 +33,8 @@ AIN-Loop（AI-Native Engineering Loop）是一套厂商无关、可渐进落地�
 ./.ain/ain next CHG-20260828-001 --prepare
 ```
 
+严格模式会把每次批准绑定到当时的工件 SHA-256 与 `.ain/config.json` SHA-256。因此，在运行 `approve` 前，请先提交该工件；批准记录写入后也应提交，再进入下一阶段。只要工件或策略配置变了，原批准会自动失效并要求重新批准。
+
 最后一个命令会创建下一阶段工件，并输出一段带上下文、风险边界和完成条件的 Agent 提示。把它交给 Codex、Claude Code 或其他代码 Agent 即可。之后持续运行 `next --prepare`；当等待人类判断时，它会改为输出准确的审批角色和命令。
 
 随时查看全局状态：
@@ -44,17 +46,55 @@ AIN-Loop（AI-Native Engineering Loop）是一套厂商无关、可渐进落地�
 
 `gate --through plan` 会同时检查 intent、spec、plan 的内容、风险对应的全部批准和前置关系。未满足时返回非零状态，可直接放进 CI。
 
+## v0.2：可执行的范围与证据门禁
+
+`plan.md` 新增 `planned_paths`。它不是备注，而是实现允许修改的路径模式。例如：
+
+```yaml
+planned_paths: "src/**, tests/**, config/feature-flags.json"
+```
+
+实现时随时检查工作树；产品代码变更没有 change ID、计划未批准、或路径不在 `planned_paths` 中，命令都会失败：
+
+```bash
+./.ain/ain guard --change CHG-20260828-001
+```
+
+GitHub Actions 安装项会对**所有 PR**运行这一检查（不再只监听工件目录）。PR 标题应包含变更 ID，例如：`[CHG-20260828-001] Add refund status`。纯文档与工件变更可以不带 ID；哪些路径算“非产品路径”由 `.ain/config.json` 的 `governance.guard.non_product_path_patterns` 决定。
+
+不要手填测试“通过”。使用 `verify` 直接执行命令；它不用 shell，保存实际 argv、退出码、日志 SHA-256、执行耗时和被验证的 Git commit 到哈希链接的证据清单中：
+
+```bash
+./.ain/ain verify CHG-20260828-001 \
+  --kind unit \
+  --command 'python3 -m unittest'
+./.ain/ain verify CHG-20260828-001 --check
+```
+
+`verification.md` 的 `result: pass` 必须引用与 `commit_sha` 匹配的成功证据，且 `release_blocked: false`。`result: partial` 可以让变更进入独立审查，但必须保持 `release_blocked: true`；`gate --through release` 会明确拒绝它。这使“环境暂不可用、验证未齐”成为可见的受限状态，而不是伪造的通过。
+
+### 批准完整性与身份认证的边界
+
+`approve --by` 记录的是本地签署声明。v0.2 能证明“当前批准对应的是哪份工件、哪版策略、哪个 subject commit”，不能单靠本地文本证明“这个人是谁”。可在 `.ain/config.json` 的 `governance.role_bindings` 设置本地姓名白名单，但生产级授权仍须由代码托管平台登录身份、CODEOWNERS、受保护分支、CI 服务身份和发布系统权限提供。
+
+### 从 v0.1 迁移
+
+已安装的 v1 `.ain/config.json` 会继续按旧行为读取，避免历史工件突然失效。要启用严格模式，请备份本地定制后重新执行 `init --force --with-github`，或将分发包的 v2 `config/framework.json` 合并到 `.ain/config.json`，再为现有 `plan.md` 补上 `planned_paths`。旧批准缺少哈希绑定；在 v2 下需要重新批准相关阶段。
+
 ## 智能编排能力
 
 | 能力 | 实现方式 | 结果 |
 | --- | --- | --- |
 | 内容感知风险 | 扫描工件关键词与拟修改路径，取“声明风险”和“推断风险”中的较高者 | Agent 或人不能静默降低风险 |
 | 动态审批 | 风险级别与阶段共同计算所需角色 | 支付、隐私、迁移、生产变更自动增加技术/安全/发布批准 |
-| 工件校验 | 检查元数据、必需章节、空内容、占位符和通过状态 | 空模板、伪完成、错 change ID 无法过门 |
+| 工件校验 | 检查元数据、必需章节、空内容、占位符、通过状态和跨阶段约束 | 空模板、伪完成、错 change ID 无法过门 |
+| 绑定批准 | 批准记录工件/策略 SHA-256，验证和审查另绑定 subject commit | 工件或策略被改写后，旧批准自动失效 |
+| Diff 守卫 | 读取 Git base/head 或工作树，按 `planned_paths` 约束产品路径 | 源码 PR 不能靠不修改工件绕过计划门禁 |
+| 真实验证 | 无 shell 执行、限时限量日志、哈希链接 JSONL 证据 | `pass` 必须有可复查的命令结果 |
 | 状态机 | 从真实工件和批准记录推导下一动作 | 不依赖聊天上下文判断项目进度 |
 | Agent 路由 | 为六阶段分别生成受边界约束的提示 | Agent 只处理当前阶段，不能自行越权审批 |
 | 审计 | 每次创建、风险评估、工件准备和批准写入 JSONL | 可还原谁在何时基于什么角色作出决定 |
-| CI 门禁 | `validate` 与 `gate --through <stage>` 返回确定性退出码 | 模型判断之外仍有可执行控制 |
+| CI 门禁 | `validate`、`guard` 与 `gate --through <stage>` 返回确定性退出码 | 模型判断之外仍有可执行控制 |
 
 风险词、保护路径、阶段、模板和审批矩阵均位于业务仓库的 `.ain/config.json`，可由平台及策略所有者通过 PR 管理。提示位于 `.ain/prompts/`；修改配置或提示时，应运行 Agent eval 回归集。
 

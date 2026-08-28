@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "change_id": "CHG-20260828-001",
+  "title": "强化 AIN-Loop 的不可绕过门禁与可验证证据链",
+  "owner": "user-request",
+  "source": "framework_dogfood",
+  "declared_risk": "R2",
+  "status": "ready_for_verification",
+  "created_at": "2026-08-28T07:48:10Z",
+  "updated_at": "2026-08-28T07:54:37Z",
+  "approvals": [
+    {
+      "stage": "intent",
+      "role": "product_owner",
+      "by": "user-request",
+      "decision": "approved",
+      "at": "2026-08-28T07:51:27Z",
+      "note": "User explicitly authorized a generic framework control-plane upgrade; platform-specific profiles excluded"
+    },
+    {
+      "stage": "spec",
+      "role": "product_owner",
+      "by": "user-request",
+      "decision": "approved",
+      "at": "2026-08-28T07:53:05Z",
+      "note": "Generic governance specification accepted; platform profiles excluded"
+    },
+    {
+      "stage": "spec",
+      "role": "technical_lead",
+      "by": "Codex-framework-architect",
+      "decision": "approved",
+      "at": "2026-08-28T07:53:05Z",
+      "note": "Local framework design approved for implementation; no production release authorization"
+    },
+    {
+      "stage": "plan",
+      "role": "engineer",
+      "by": "Codex",
+      "decision": "approved",
+      "at": "2026-08-28T07:54:37Z",
+      "note": "Generic implementation plan accepted; no platform-specific profile work is included"
+    }
+  ],
+  "events": [
+    {
+      "at": "2026-08-28T07:48:10Z",
+      "change_id": "CHG-20260828-001",
+      "event": "change_created",
+      "actor": "user-request",
+      "declared_risk": "R2"
+    },
+    {
+      "at": "2026-08-28T07:51:27Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "user-request",
+      "stage": "intent",
+      "role": "product_owner",
+      "decision": "approved",
+      "note": "User explicitly authorized a generic framework control-plane upgrade; platform-specific profiles excluded"
+    },
+    {
+      "at": "2026-08-28T07:51:27Z",
+      "change_id": "CHG-20260828-001",
+      "event": "artifact_prepared",
+      "actor": "ain-orchestrator",
+      "stage": "spec",
+      "artifact": "spec.md"
+    },
+    {
+      "at": "2026-08-28T07:53:05Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "user-request",
+      "stage": "spec",
+      "role": "product_owner",
+      "decision": "approved",
+      "note": "Generic governance specification accepted; platform profiles excluded"
+    },
+    {
+      "at": "2026-08-28T07:53:05Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "Codex-framework-architect",
+      "stage": "spec",
+      "role": "technical_lead",
+      "decision": "approved",
+      "note": "Local framework design approved for implementation; no production release authorization"
+    },
+    {
+      "at": "2026-08-28T07:53:39Z",
+      "change_id": "CHG-20260828-001",
+      "event": "artifact_prepared",
+      "actor": "ain-orchestrator",
+      "stage": "plan",
+      "artifact": "plan.md"
+    },
+    {
+      "at": "2026-08-28T07:54:37Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "Codex",
+      "stage": "plan",
+      "role": "engineer",
+      "decision": "approved",
+      "note": "Generic implementation plan accepted; no platform-specific profile work is included"
+    }
+  ]
+}
