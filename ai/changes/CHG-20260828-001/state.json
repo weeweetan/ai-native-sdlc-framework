@@ -7,7 +7,7 @@
   "declared_risk": "R2",
   "status": "ready_for_verification",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T08:19:00Z",
+  "updated_at": "2026-08-28T08:19:37Z",
   "approvals": [
     {
       "stage": "intent",
@@ -181,6 +181,17 @@
       "note": "Reapprove after adding the generated GitHub Actions path discovered by guard",
       "artifact_sha256": "4dd6c82f5badac81abcb43f1b04f9fb21612ba6c3d6cba4e811ec29bf211d69f",
       "subject_commit": null
+    },
+    {
+      "at": "2026-08-28T08:19:37Z",
+      "change_id": "CHG-20260828-001",
+      "event": "verification_command_executed",
+      "actor": "ain-verifier",
+      "kind": "unit",
+      "subject_commit": "185ca1c22f87f056a391e7ed5065f91b52d40336",
+      "exit_code": 0,
+      "expected_exit": 0,
+      "record_hash": "a1b765c3ce52b7fd1820ddff4b51bfa57e83e23d8f8391c4ce922181bcaf4f17"
     }
   ]
 }

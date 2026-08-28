@@ -1,0 +1,13 @@
+test_bound_approval_is_invalidated_when_artifact_changes (tests.test_ain.AinCliTest.test_bound_approval_is_invalidated_when_artifact_changes) ... ok
+test_guard_requires_change_and_planned_path_coverage (tests.test_ain.AinCliTest.test_guard_requires_change_and_planned_path_coverage) ... ok
+test_init_installs_universal_github_gate (tests.test_ain.AinCliTest.test_init_installs_universal_github_gate) ... ok
+test_partial_can_be_reviewed_but_never_released (tests.test_ain.AinCliTest.test_partial_can_be_reviewed_but_never_released) ... ok
+test_pass_requires_matching_command_evidence (tests.test_ain.AinCliTest.test_pass_requires_matching_command_evidence) ... ok
+test_role_binding_rejects_unlisted_actor (tests.test_ain.AinCliTest.test_role_binding_rejects_unlisted_actor) ... ok
+test_v1_config_keeps_legacy_unbound_approval_behavior (tests.test_ain.AinCliTest.test_v1_config_keeps_legacy_unbound_approval_behavior) ... ok
+test_verify_writes_and_detects_tampered_evidence (tests.test_ain.AinCliTest.test_verify_writes_and_detects_tampered_evidence) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 19.116s
+
+OK
