@@ -1,0 +1,20 @@
+name: AIN artifact gate
+
+on:
+  pull_request:
+    paths:
+      - "ai/changes/**"
+      - ".ain/config.json"
+      - ".ain/prompts/**"
+      - "AGENTS.md"
+      - "REVIEW.md"
+
+jobs:
+  validate-artifacts:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate AIN artifacts
+        run: python3 .ain/runtime/ain.py --target . validate

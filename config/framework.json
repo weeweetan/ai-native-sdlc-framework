@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "name": "AIN-Loop",
+  "stages": [
+    {
+      "id": "intent",
+      "artifact": "intent.md",
+      "required_metadata": ["change_id", "status", "risk_level", "source", "owner"],
+      "required_sections": [["问题与证据", "Problem"], ["期望结果", "Outcome"], ["约束", "Constraints"]],
+      "approval_roles": ["product_owner"]
+    },
+    {
+      "id": "spec",
+      "artifact": "spec.md",
+      "required_metadata": ["change_id", "status", "input_intent", "owner", "risk_level"],
+      "required_sections": [["成功标准", "Success"], ["行为需求", "Requirements"], ["设计与技术边界", "Design"], ["策略与风险", "Policy", "Risk"]],
+      "approval_roles": ["product_owner"]
+    },
+    {
+      "id": "plan",
+      "artifact": "plan.md",
+      "required_metadata": ["change_id", "status", "input_spec", "engineer_owner", "risk_level"],
+      "required_sections": [["变更范围", "Scope"], ["实施顺序", "Implementation"], ["风险", "Risk"], ["验证计划", "Verification"]],
+      "approval_roles": ["engineer"]
+    },
+    {
+      "id": "verification",
+      "artifact": "verification.md",
+      "required_metadata": ["change_id", "commit_sha", "agent_identity", "result"],
+      "required_sections": [["计划符合性", "Plan conformance"], ["实际执行证据", "Evidence"], ["独立验证", "Independent verification"]],
+      "approval_roles": ["verifier"]
+    },
+    {
+      "id": "review",
+      "artifact": "review.md",
+      "required_metadata": ["change_id", "commit_sha", "result", "reviewer_identity"],
+      "required_sections": [["计划一致性", "Plan consistency"], ["审查发现", "Findings"], ["残余风险", "Residual risk"]],
+      "approval_roles": ["code_owner"]
+    },
+    {
+      "id": "release",
+      "artifact": "release.md",
+      "required_metadata": ["change_id", "commit_sha", "environment", "decision"],
+      "required_sections": [["发布条件", "Release conditions"], ["回滚", "Rollback"], ["发布后观测", "Post-release"]],
+      "approval_roles": []
+    }
+  ],
+  "risk": {
+    "levels": ["R0", "R1", "R2", "R3"],
+    "rules": [
+      {
+        "id": "production_or_irreversible",
+        "level": "R3",
+        "patterns": ["production", "prod deploy", "生产环境", "不可逆", "永久删除", "drop table", "truncate", "credential", "密钥轮换", "监管报送"],
+        "path_patterns": ["infra/prod/", "terraform/prod/", "migrations/destructive/", "secrets/"]
+      },
+      {
+        "id": "sensitive_or_structural",
+        "level": "R2",
+        "patterns": ["authentication", "authorization", "oauth", "payment", "billing", "pii", "personal data", "鉴权", "授权", "支付", "账单", "个人信息", "隐私", "数据迁移", "schema migration", "encryption", "加密"],
+        "path_patterns": ["auth/", "payments/", "billing/", "migrations/", "security/", "iam/"]
+      },
+      {
+        "id": "user_visible_logic",
+        "level": "R1",
+        "patterns": ["api", "endpoint", "用户流程", "业务逻辑", "feature", "database", "数据库", "缓存", "queue", "消息队列"],
+        "path_patterns": ["api/", "src/", "app/", "services/", "database/"]
+      }
+    ],
+    "additional_approvals": {
+      "R0": {},
+      "R1": {"release": ["service_owner"]},
+      "R2": {"spec": ["technical_lead"], "review": ["security_or_policy_owner"], "release": ["release_manager"]},
+      "R3": {"spec": ["technical_lead", "policy_owner"], "plan": ["architect"], "verification": ["independent_verifier"], "review": ["security_owner", "policy_owner"], "release": ["release_manager", "second_approver"]}
+    }
+  },
+  "validation": {
+    "placeholder_tokens": ["CHG-YYYY", "YYYY-MM", "<一句话", "<变更名称>", "姓名 / Agent", "待填写", "TODO"],
+    "passing_values": {"verification.result": ["pass"], "review.result": ["pass", "accepted"], "release.decision": ["approved", "released"]}
+  }
+}

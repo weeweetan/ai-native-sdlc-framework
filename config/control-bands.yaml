@@ -1,0 +1,52 @@
+# 由确定性监控系统评估；模型仅在条件命中后被调用。
+# 阈值须由服务所有者基于历史基线校准，禁止直接照搬示例数值。
+version: 1
+owner: platform-and-service-owner
+
+bands:
+  - id: ci-flake-rate
+    metric: ci_test_failure_rate
+    baseline: rolling_30d
+    evaluation: statistical_control_chart
+    tiers:
+      warning:
+        threshold: ">= 1_sigma"
+        action: log
+        agent_access: none
+      investigate:
+        threshold: ">= 2_sigma"
+        action: diagnose_and_open_intent
+        agent_access: read_only
+        output: ai/intent/
+        human_gate: service_owner_triage
+      critical:
+        threshold: ">= 3_sigma"
+        action: propose_revert_pr
+        agent_access: create_pull_request
+        human_gate: code_owner_approval
+
+  - id: post-deploy-5xx
+    metric: http_5xx_rate
+    baseline: deployment_window_baseline
+    conditions:
+      - deployment_within: 30m
+    tiers:
+      investigate:
+        threshold: ">= error_budget_burn_alert"
+        action: diagnose_and_open_incident
+        agent_access: read_only
+        human_gate: on_call_triage
+      critical:
+        threshold: ">= critical_error_budget_burn"
+        action: invoke_preapproved_rollback
+        agent_access: rollback_only
+        prerequisites:
+          - rollback_exercised_in_staging
+          - release_authorization_present
+        human_gate: release_manager_for_R2_R3
+
+guardrails:
+  - Agent cannot execute arbitrary production commands.
+  - Every write action goes through a pull request or an environment-specific approval gate.
+  - Findings, tool calls, decisions and approvals emit immutable audit events.
+  - Each incident creates or updates a regression eval before closure.
