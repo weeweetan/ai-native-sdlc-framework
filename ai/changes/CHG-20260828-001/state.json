@@ -7,7 +7,7 @@
   "declared_risk": "R2",
   "status": "ready_for_verification",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T08:18:09Z",
+  "updated_at": "2026-08-28T08:19:00Z",
   "approvals": [
     {
       "stage": "intent",
@@ -50,12 +50,12 @@
       "role": "engineer",
       "by": "Codex",
       "decision": "approved",
-      "at": "2026-08-28T08:18:09Z",
-      "note": "Rebind the accepted implementation plan to strict v2 content and policy hashes",
+      "at": "2026-08-28T08:19:00Z",
+      "note": "Reapprove after adding the generated GitHub Actions path discovered by guard",
       "binding": "artifact",
-      "artifact_sha256": "84dcfef9d6210a88d617e89f8caeff8338230d1e60e1580a137f407c3958ea65",
+      "artifact_sha256": "4dd6c82f5badac81abcb43f1b04f9fb21612ba6c3d6cba4e811ec29bf211d69f",
       "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
-      "git_head": "54ffdcef6b34059404f69311f44dd7d1fff8fef5"
+      "git_head": "605a9e04b66aae229ece99935899d62829a36c68"
     }
   ],
   "events": [
@@ -168,6 +168,18 @@
       "decision": "approved",
       "note": "Rebind the accepted implementation plan to strict v2 content and policy hashes",
       "artifact_sha256": "84dcfef9d6210a88d617e89f8caeff8338230d1e60e1580a137f407c3958ea65",
+      "subject_commit": null
+    },
+    {
+      "at": "2026-08-28T08:19:00Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "Codex",
+      "stage": "plan",
+      "role": "engineer",
+      "decision": "approved",
+      "note": "Reapprove after adding the generated GitHub Actions path discovered by guard",
+      "artifact_sha256": "4dd6c82f5badac81abcb43f1b04f9fb21612ba6c3d6cba4e811ec29bf211d69f",
       "subject_commit": null
     }
   ]
