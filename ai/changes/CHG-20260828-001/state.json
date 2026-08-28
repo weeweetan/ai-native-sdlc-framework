@@ -7,16 +7,8 @@
   "declared_risk": "R2",
   "status": "awaiting_spec_approval",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T08:17:35Z",
+  "updated_at": "2026-08-28T08:17:49Z",
   "approvals": [
-    {
-      "stage": "spec",
-      "role": "product_owner",
-      "by": "user-request",
-      "decision": "approved",
-      "at": "2026-08-28T07:53:05Z",
-      "note": "Generic governance specification accepted; platform profiles excluded"
-    },
     {
       "stage": "spec",
       "role": "technical_lead",
@@ -44,6 +36,18 @@
       "artifact_sha256": "9adf787019a3a2c58aa35ddc326436e5d75d3967ef163a48de0b9b3876fef245",
       "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
       "git_head": "005fb36ba861da3d017e29e74deff414b00d333f"
+    },
+    {
+      "stage": "spec",
+      "role": "product_owner",
+      "by": "user-request",
+      "decision": "approved",
+      "at": "2026-08-28T08:17:49Z",
+      "note": "Rebind the user-approved specification to strict v2 content and policy hashes",
+      "binding": "artifact",
+      "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
+      "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
+      "git_head": "291163062ca28807569d8cfdd17494d5b17ab70a"
     }
   ],
   "events": [
@@ -120,6 +124,18 @@
       "decision": "approved",
       "note": "Rebind the user-approved intent to strict v2 content and policy hashes",
       "artifact_sha256": "9adf787019a3a2c58aa35ddc326436e5d75d3967ef163a48de0b9b3876fef245",
+      "subject_commit": null
+    },
+    {
+      "at": "2026-08-28T08:17:49Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "user-request",
+      "stage": "spec",
+      "role": "product_owner",
+      "decision": "approved",
+      "note": "Rebind the user-approved specification to strict v2 content and policy hashes",
+      "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
       "subject_commit": null
     }
   ]
