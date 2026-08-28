@@ -5,7 +5,7 @@ input_spec: spec.md
 engineer_owner: "Codex"
 accepted_by: "user-request"
 risk_level: R2
-planned_paths: "scripts/ain.py,config/framework.json,templates/plan.md,templates/verification.md,templates/AGENTS.md,integrations/github/ain-gate.yml,tests/test_ain.py,README.md,AGENTS.md,REVIEW.md,.ain/**,ai/changes/CHG-20260828-001/**"
+planned_paths: "scripts/ain.py,config/framework.json,templates/plan.md,templates/verification.md,templates/AGENTS.md,integrations/github/ain-gate.yml,.github/workflows/ain-gate.yml,tests/test_ain.py,README.md,AGENTS.md,REVIEW.md,.ain/**,ai/changes/CHG-20260828-001/**"
 ---
 
 # Implementation Plan：强化 AIN-Loop 的不可绕过门禁与可验证证据链
@@ -18,6 +18,7 @@ planned_paths: "scripts/ain.py,config/framework.json,templates/plan.md,templates
 | `config/framework.json` | v2 governance、计划路径和验证证据策略 | 让控制可配置而不是硬编码 | 配置语义升级 |
 | `templates/plan.md`、`templates/verification.md` | `planned_paths`、`release_blocked`、subject commit、证据索引 | 让新工件可被 CLI 验证 | 用户需要补充新字段 |
 | `integrations/github/ain-gate.yml` | 移除窄路径触发，解析 PR 标题 change-id，调用 guard | 防止源码 PR 绕过控制 | 旧 PR 标题不合规会失败 |
+| `.github/workflows/ain-gate.yml` | 安装后的同一份 GitHub Actions 门禁 | 让 dogfood 安装物与分发模板保持一致 | 生成副本需随模板刷新 |
 | `tests/test_ain.py` | 临时 Git 仓库、审批失效、guard、verify、partial 的回归测试 | 防止本次发现的问题回归 | 测试依赖本机 Git |
 | `README.md`、`templates/AGENTS.md` | 更新真实使用、身份边界和 CI 接入说明 | 不让文档夸大本地身份能力 | 文档与命令不一致 |
 | `.ain/`、`ai/changes/...` | 将框架自举到新版 runtime 并保留本次决策证据 | dogfood 新门禁 | 生成副本与分发源不同步 |
