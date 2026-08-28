@@ -5,18 +5,10 @@
   "owner": "user-request",
   "source": "framework_dogfood",
   "declared_risk": "R2",
-  "status": "awaiting_spec_approval",
+  "status": "awaiting_plan_approval",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T08:17:49Z",
+  "updated_at": "2026-08-28T08:17:59Z",
   "approvals": [
-    {
-      "stage": "spec",
-      "role": "technical_lead",
-      "by": "Codex-framework-architect",
-      "decision": "approved",
-      "at": "2026-08-28T07:53:05Z",
-      "note": "Local framework design approved for implementation; no production release authorization"
-    },
     {
       "stage": "plan",
       "role": "engineer",
@@ -48,6 +40,18 @@
       "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
       "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
       "git_head": "291163062ca28807569d8cfdd17494d5b17ab70a"
+    },
+    {
+      "stage": "spec",
+      "role": "technical_lead",
+      "by": "Codex-framework-architect",
+      "decision": "approved",
+      "at": "2026-08-28T08:17:58Z",
+      "note": "Rebind the accepted technical specification to strict v2 content and policy hashes",
+      "binding": "artifact",
+      "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
+      "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
+      "git_head": "0900aea3da7aaef38469b7a62c40d9ea50b82b3d"
     }
   ],
   "events": [
@@ -135,6 +139,18 @@
       "role": "product_owner",
       "decision": "approved",
       "note": "Rebind the user-approved specification to strict v2 content and policy hashes",
+      "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
+      "subject_commit": null
+    },
+    {
+      "at": "2026-08-28T08:17:59Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "Codex-framework-architect",
+      "stage": "spec",
+      "role": "technical_lead",
+      "decision": "approved",
+      "note": "Rebind the accepted technical specification to strict v2 content and policy hashes",
       "artifact_sha256": "0a6dd2700911d424bd5ac2debd50ff189362f45048523471aea592bfaa520200",
       "subject_commit": null
     }
