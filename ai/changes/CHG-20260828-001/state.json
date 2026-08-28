@@ -5,9 +5,9 @@
   "owner": "user-request",
   "source": "framework_dogfood",
   "declared_risk": "R2",
-  "status": "ready_for_verification",
+  "status": "ready_for_review",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T08:19:37Z",
+  "updated_at": "2026-08-28T08:20:28Z",
   "approvals": [
     {
       "stage": "intent",
@@ -56,6 +56,19 @@
       "artifact_sha256": "4dd6c82f5badac81abcb43f1b04f9fb21612ba6c3d6cba4e811ec29bf211d69f",
       "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
       "git_head": "605a9e04b66aae229ece99935899d62829a36c68"
+    },
+    {
+      "stage": "verification",
+      "role": "verifier",
+      "by": "Codex-framework-verifier",
+      "decision": "approved",
+      "at": "2026-08-28T08:20:28Z",
+      "note": "Approve the recorded command evidence; independent code review remains pending",
+      "binding": "artifact_and_subject_commit",
+      "artifact_sha256": "33da03c306b67c18a85e9a63d79679c04d63849334e0d2e8631ba78a409af62e",
+      "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
+      "git_head": "2d72cd6692ab223ddaf0ba801b31a95192bba168",
+      "subject_commit": "185ca1c22f87f056a391e7ed5065f91b52d40336"
     }
   ],
   "events": [
@@ -192,6 +205,18 @@
       "exit_code": 0,
       "expected_exit": 0,
       "record_hash": "a1b765c3ce52b7fd1820ddff4b51bfa57e83e23d8f8391c4ce922181bcaf4f17"
+    },
+    {
+      "at": "2026-08-28T08:20:28Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "Codex-framework-verifier",
+      "stage": "verification",
+      "role": "verifier",
+      "decision": "approved",
+      "note": "Approve the recorded command evidence; independent code review remains pending",
+      "artifact_sha256": "33da03c306b67c18a85e9a63d79679c04d63849334e0d2e8631ba78a409af62e",
+      "subject_commit": "185ca1c22f87f056a391e7ed5065f91b52d40336"
     }
   ]
 }
