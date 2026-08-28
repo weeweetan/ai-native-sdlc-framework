@@ -5,18 +5,10 @@
   "owner": "user-request",
   "source": "framework_dogfood",
   "declared_risk": "R2",
-  "status": "ready_for_verification",
+  "status": "awaiting_spec_approval",
   "created_at": "2026-08-28T07:48:10Z",
-  "updated_at": "2026-08-28T07:54:37Z",
+  "updated_at": "2026-08-28T08:17:35Z",
   "approvals": [
-    {
-      "stage": "intent",
-      "role": "product_owner",
-      "by": "user-request",
-      "decision": "approved",
-      "at": "2026-08-28T07:51:27Z",
-      "note": "User explicitly authorized a generic framework control-plane upgrade; platform-specific profiles excluded"
-    },
     {
       "stage": "spec",
       "role": "product_owner",
@@ -40,6 +32,18 @@
       "decision": "approved",
       "at": "2026-08-28T07:54:37Z",
       "note": "Generic implementation plan accepted; no platform-specific profile work is included"
+    },
+    {
+      "stage": "intent",
+      "role": "product_owner",
+      "by": "user-request",
+      "decision": "approved",
+      "at": "2026-08-28T08:17:35Z",
+      "note": "Rebind the user-approved intent to strict v2 content and policy hashes",
+      "binding": "artifact",
+      "artifact_sha256": "9adf787019a3a2c58aa35ddc326436e5d75d3967ef163a48de0b9b3876fef245",
+      "policy_sha256": "0f035f7c3c4a4315ae7a6f764b3c7ed054e1a28686016b56338ccb6bcace23e0",
+      "git_head": "005fb36ba861da3d017e29e74deff414b00d333f"
     }
   ],
   "events": [
@@ -105,6 +109,18 @@
       "role": "engineer",
       "decision": "approved",
       "note": "Generic implementation plan accepted; no platform-specific profile work is included"
+    },
+    {
+      "at": "2026-08-28T08:17:35Z",
+      "change_id": "CHG-20260828-001",
+      "event": "stage_decision",
+      "actor": "user-request",
+      "stage": "intent",
+      "role": "product_owner",
+      "decision": "approved",
+      "note": "Rebind the user-approved intent to strict v2 content and policy hashes",
+      "artifact_sha256": "9adf787019a3a2c58aa35ddc326436e5d75d3967ef163a48de0b9b3876fef245",
+      "subject_commit": null
     }
   ]
 }
